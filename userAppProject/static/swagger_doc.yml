@@ -1,0 +1,174 @@
+openapi: 3.0.1
+info:
+  title: User App
+  description: Flask App demonstrating CURD operation's
+  version: 1.0.0
+servers:
+- url: /
+
+paths:
+  /users:
+    get:
+      tags:
+      - users
+      summary: get all user's
+      responses:
+        200:
+          description: success.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserData"
+        204:
+          description: empty data base.
+          content: {}
+        401:
+          description: unauthorized request.
+        403:
+          description: forbidden request.
+      security:
+      - JWT: []
+  /user/{required_user_id}:
+    put:
+      tags:
+      - users
+      summary: promote a user as admin
+      parameters:
+      - name: required_user_id
+        in: path
+        description: unique global identifier.
+        required: true
+        schema:
+          type: string
+      responses:
+        204:
+          description: user is promoted.
+        401:
+          description: unauthorized request.
+        403:
+          description: forbidden request.
+        404:
+          description: user not found.
+      security:
+      - JWT: []
+    delete:
+      tags:
+      - users
+      summary: delete a user based on global user ID
+      parameters:
+      - name: required_user_id
+        in: path
+        description: unique global identifier.
+        required: true
+        schema:
+          type: string
+      responses:
+        204:
+          description: user deleted.
+        401:
+          description: unauthorized request.
+        403:
+          description: forbidden request.
+        404:
+          description: user not found.
+      security:
+      - JWT: []
+    get:
+      tags:
+      - users
+      summary: get a user based on global user ID
+      parameters:
+      - name: required_user_id
+        in: path
+        description: unique global identifier.
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: success.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserData"
+        401:
+          description: unauthorized request. 
+        403:
+          description: forbidden request.
+        404:
+          description: user not found.
+      security:
+      - JWT: []
+  /user:
+    post:
+      tags:
+      - users
+      summary: create a new user
+      requestBody:
+        description: "enter user details"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        201:
+          description: user created successfully.
+          content: {}
+        400:
+          description: bad request.
+          content: {}
+        500:
+          description: internal server error.
+  /login:
+    get:
+      tags:
+      - users
+      summary: login to get x-access-token
+      responses:
+        200:
+          description: success.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Login" 
+        401:
+          description: unauthorized request.
+        404:
+          description: user not found.
+        500:
+          description: internal server error.
+      security:
+      - basicAuth: []
+components:
+  schemas:
+    Login:
+      properties:
+        token:
+          type: string
+    User:
+      properties:
+        user_name:
+          type: string
+        user_password:
+          type: string
+    UserData:
+      properties:
+        admin:
+          type: boolean
+        global_id:
+          type: string
+        user_id:
+          type: string
+        user_name:
+          type: string
+        user_password:
+          type: string
+  securitySchemes:
+    JWT:
+      type: apiKey
+      name: x-access-token
+      in: header
+    basicAuth:
+      type: http
+      scheme: basic
