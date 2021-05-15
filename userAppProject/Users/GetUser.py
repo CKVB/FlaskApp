@@ -3,7 +3,7 @@ from usersInterface.usersInterface import getUserInterface
 
 class GetUser(getUserInterface):
     def get_user(self, global_id, mysql):
-        cursor = mysql.connection.cursor()
+        cursor = mysql.cursor()
         sql_query = "select * from users where guid = %s"
         values = [global_id]
         cursor.execute(sql_query, values)

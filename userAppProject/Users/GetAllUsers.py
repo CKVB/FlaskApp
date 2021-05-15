@@ -4,7 +4,7 @@ from usersInterface.usersInterface import getAllUsersInterface
 class GetUsers(getAllUsersInterface):
     def get_all_users(self, mysql):
         sql_query = "select * from users"
-        cursor = mysql.connection.cursor()
+        cursor = mysql.cursor()
         cursor.execute(sql_query)
         users_data = cursor.fetchall()
         users_info = []

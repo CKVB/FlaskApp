@@ -14,7 +14,7 @@ class CreateUser(createUserInterface):
 
         sql_query = "insert into users (guid,uname,upsw,admin) values (%s, %s, %s, %s)"
         values = [global_user_id, user_name, user_password, admin]
-        cursor = mysql.connection.cursor()
-        status = cursor.execute(sql_query, values)
-        mysql.connection.commit()
-        return status
+        cursor = mysql.cursor()
+        status = cursor.execute(sql_query, values)  # returns none if success.
+        mysql.commit()
+        return not status

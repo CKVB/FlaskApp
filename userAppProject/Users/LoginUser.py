@@ -8,7 +8,7 @@ import datetime
 class Login(loginUserInterface):
     def login(self, app, mysql):
         auth = request.authorization
-        cursor = mysql.connection.cursor()
+        cursor = mysql.cursor()
         sql_query = "select guid,upsw from users where uname = %s"
         values = [auth.username]
         cursor.execute(sql_query, values)
