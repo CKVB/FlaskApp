@@ -3,6 +3,13 @@ services:
   app:
     build:
       ./userAppProject
+    environment:
+      USER: "$USER" 
+      HOST: "$HOST"
+      PORT: "$PORT"
+      PASSWORD: "$PASSWORD"
+      DATABASE: "$DATABASE"
+      SECRET_KEY: "$SECRET_KEY"
     depends_on:
       - mysql_db
     restart: always

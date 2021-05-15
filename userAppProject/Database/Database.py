@@ -1,15 +1,16 @@
 import mysql.connector
+import os
 
 
 class Connection:
     def get_connection(app):
-        app.config["SECRET_KEY"] = "pl33nkmlaf1b391d1998b68ijaw2y3"
+        app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
         config = {
-            'user': 'root',
-            'host': 'mysql_db',
-            'port': '3306',
-            'password': 'ckvb1998',
-            'database': 'usersDataBase'
+            'user': os.getenv("USER"),
+            'host': os.getenv("HOST"),
+            'port': os.getenv("PORT"),
+            'password': os.getenv("PASSWORD"),
+            'database': os.getenv("DATABASE")
         }
         connection = mysql.connector.connect(**config)
         return connection
