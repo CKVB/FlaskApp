@@ -25,13 +25,13 @@ services:
     image: mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ckvb1998
+      MYSQL_ROOT_PASSWORD: "$PASSWORD"
     ports:
       - 3308:3306
     expose:
       - '3306'
     volumes: 
-      - ./db:/docker-entrypoint-initdb.d/:ro
+      - ./setupDataBase:/docker-entrypoint-initdb.d/:ro
 
   
   
