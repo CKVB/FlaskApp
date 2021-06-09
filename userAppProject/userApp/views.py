@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, redirect
 from flask_swagger_ui import get_swaggerui_blueprint
 from .routes.getView import get_view
 from .models import User, db
@@ -24,7 +24,7 @@ def index():
         new_user = User(global_user_id="a3a4268f-3e2c-4dda-862a-25ce8533a940", user_name="king@mail.com", user_password="sha256$W9WC0zo4$6b6568dc9c88b913967cc5147fab2401c7ee5a813cd08e4757031b3126dd3d1d", admin=True)
         db.session.add(new_user)
         db.session.commit()
-    return "Hello!"
+    return redirect("swagger")
 
 
 @user_api.route("/users", methods=["GET"])
